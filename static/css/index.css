@@ -1,0 +1,47 @@
+body{
+	margin: 0;
+	width: 100vw;
+	height: 100vh;
+}
+
+#wrapper{
+	display: grid;
+	grid-template-columns: repeat(9, 1fr);
+	grid-template-rows: 90vh;
+}
+
+#left{
+	padding: 15px;
+	grid-column: span 1;
+}
+
+#center{
+	padding: 15px;
+	grid-column: span 2;
+}
+
+#right{
+	padding: 15px;
+	grid-column: span 6;
+}
+
+#song-list-container{
+	height: 100%;
+	overflow:hidden; 
+	overflow-y:scroll;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+li{
+	border-bottom: 1px solid;
+    margin-bottom: 10px;
+    list-style-position:inside;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis; 
+}
