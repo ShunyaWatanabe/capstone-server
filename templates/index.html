@@ -2,8 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>AudioSpectrum in JavaScript</title>
-        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+        <title>Capstone</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
     </head>
@@ -12,15 +11,16 @@
             <h1>Menu</h1>
         </div>
         <div id="center">
-            <h2>Playlist</h2>
             <div id="song-list-container">
+                <h2>Choose your 1st song</h2>
                 <ul id="song-list">
                 {%for i in range(0, numSongs)%} 
-                    <li><a class="song" id="{{songs[i]}}"> {{i+1}} : {{ songs[i] }} </a></li> 
+                    <li class="playlist-item"><a class="song" id="{{songs[i]}}"> {{i+1}} : {{ songs[i] }} </a></li> 
                 {%endfor%} 
                 </ul>
             </div>
             <div id="playlist-container">
+                <h2>Playlist</h2>
                 <ul id="playlist">
                 </ul>
             </div>
@@ -28,32 +28,49 @@
         <div id="right">
             <div id="timeline-viewer">
             <!-- Create a div where the audio waves will be shown --> 
-            <div id="timeline1">
-                <div id="audio-spectrum1"></div>
-                <!-- Create action buttons -->
-                <div class="buttons">
-                    <input type="button" id="btn-play" value="Play" disabled="disabled"/>
-                    <input type="button" id="btn-pause" value="Pause" disabled="disabled"/>
-                    <input type="button" id="btn-stop" value="Stop" disabled="disabled" />
+            
+                <div id="timeline1">
+                    <div class="song-details" id="song-details1">
+                        <span class="song-title" id="song-title1"></span>
+                        <span class="bpm" id="bpm1"></span>
+                        <span class="key" id="key1"></span>
+                    </div>
+                    <div id="audio-spectrum1"></div>
+                    <!-- Create action buttons -->
+                    <div class="buttons">
+                        <input type="button" id="btn-play1" value="Play" disabled="disabled"/>
+                        <input type="button" id="btn-pause1" value="Pause" disabled="disabled"/>
+                        <input type="button" id="btn-stop1" value="Stop" disabled="disabled" />
+                    </div>
+                </div>
+                <!-- Create a div where the audio waves will be shown --> 
+                <div id="timeline2">
+                    <div class="song-details" id="song-details2">
+                        <span class="song-title" id="song-title2"></span>
+                        <span class="bpm" id="bpm2"></span>
+                        <span class="key" id="key2"></span>
+                    </div>
+                    <div id="audio-spectrum2"></div>
+                    <!-- Create action buttons -->
+                    <div class="buttons">
+                        <input type="button" id="btn-play2" value="Play" disabled="disabled"/>
+                        <input type="button" id="btn-pause2" value="Pause" disabled="disabled"/>
+                        <input type="button" id="btn-stop2" value="Stop" disabled="disabled" />
+                    </div>
                 </div>
             </div>
-            <!-- Create a div where the audio waves will be shown --> 
-            <div id="timeline2">
-                <div id="audio-spectrum2"></div>
-                <!-- Create action buttons -->
-                <div class="buttons">
-                    <input type="button" id="btn-play2" value="Play" disabled="disabled"/>
-                    <input type="button" id="btn-pause2" value="Pause" disabled="disabled"/>
-                    <input type="button" id="btn-stop2" value="Stop" disabled="disabled" />
-                </div>
+            <div id="feature-buttons">
+                <input type="button" id="btn-play-both" value="Play Both" disabled="disabled"/>
+                <input type="button" id="btn-pause-both" value="Pause Both" disabled="disabled"/>
+                <input type="button" id="btn-stop-both" value="Stop Both" disabled="disabled"/>
+                <!-- <input type="button" id="btn-add-to-playlist1" value="Add song 1 to Playlist" disabled="disabled"/> -->
+                <input type="button" id="btn-add-to-playlist2" value="Add song 2 to Playlist" disabled="disabled"/>
             </div>
             <div id="recommendation-wrapper">
                 <h2>Recommendations</h2>
                 <ul id="recommendation">
                 </ul>
             </div>
-            
-        </div>
         </div>
 
         <!-- Load the wavesurferscript , in this case from a CDN -->

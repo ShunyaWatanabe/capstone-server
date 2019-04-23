@@ -1,5 +1,5 @@
-import music21
-music21.environment.UserSettings()['warnings'] = 0
+#import music21
+#music21.environment.UserSettings()['warnings'] = 0
 import librosa
 #from pydub import AudioSegment
 
