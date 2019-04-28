@@ -7,7 +7,7 @@ body{
 #wrapper{
 	display: grid;
 	grid-template-columns: repeat(9, 1fr);
-	grid-template-rows: 90vh;
+	grid-template-rows: 100vh;
 }
 
 #left{
@@ -25,26 +25,27 @@ body{
 	grid-column: span 6;
 }
 
-#song-list-container{
-	height: 50%;
+#song-list-container, #playlist-container{
+	/*using flex box*/
+	display: flex;
+	height: 100%;
+	flex-flow: column;
+}
+
+#song-list-header, #playlist-header{
+	/*flex box item 1*/
+}
+
+#song-list, #playlist{
+	/*flex box item 2*/
+	flex-shrink: 2;
 	overflow:hidden; 
 	overflow-y:scroll;
 }
 
-#playlist-container{
-	height: 50%;
-	overflow:hidden; 
-	overflow-y:scroll;
-}
-
-#song-list{
-	overflow:hidden; 
-	overflow-y:scroll;
-}
-
-#playlist{
-	overflow:hidden; 
-	overflow-y:scroll;
+#btn-song-list, #playlist-buttons{
+	/*flex box item 3*/
+	margin: 10px;
 }
 
 ul {
@@ -107,4 +108,8 @@ a:hover{
 	margin-left: 5%;
 	width: 20%;
 	float: right;
+}
+
+#btn-add-to-playlist1{
+	display: none;
 }

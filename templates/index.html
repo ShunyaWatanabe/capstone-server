@@ -12,59 +12,50 @@
         </div>
         <div id="center">
             <div id="song-list-container">
-                <h2>Choose your 1st song</h2>
+                <h2 id="song-list-header">Choose your 1st song</h2>
                 <ul id="song-list">
                 {%for i in range(0, numSongs)%} 
                     <li class="playlist-item"><a class="song" id="{{songs[i]}}"> {{i+1}} : {{ songs[i] }} </a></li> 
                 {%endfor%} 
                 </ul>
+                <input type="button" id="btn-song-list" value="Decide"/>
             </div>
             <div id="playlist-container">
                 <h2>Playlist</h2>
                 <ul id="playlist">
                 </ul>
+                <div id="playlist-buttons">
+                    <input type="button" id="btn-playlist-download" value="Download"/>
+                    <input type="button" id="btn-playlist-reset" value="Reset"/>
+                </div>
             </div>
         </div>
         <div id="right">
             <div id="timeline-viewer">
             <!-- Create a div where the audio waves will be shown --> 
-            
-                <div id="timeline1">
-                    <div class="song-details" id="song-details1">
-                        <span class="song-title" id="song-title1"></span>
-                        <span class="bpm" id="bpm1"></span>
-                        <span class="key" id="key1"></span>
+                {%for i in range(0, 2)%} 
+                    <div id="timeline{{i+1}}">
+                        <div class="song-details" id="song-details{{i+1}}">
+                            <span class="song-title" id="song-title{{i+1}}"></span>
+                            <span class="bpm" id="bpm{{i+1}}"></span>
+                            <span class="key" id="key{{i+1}}"></span>
+                        </div>
+                        <div id="audio-spectrum{{i+1}}"></div>
+                        <!-- Create action buttons -->
+                        <div class="buttons">
+                            <input type="button" id="btn-play{{i+1}}" value="Play" disabled="disabled"/>
+                            <input type="button" id="btn-pause{{i+1}}" value="Pause" disabled="disabled"/>
+                            <input type="button" id="btn-stop{{i+1}}" value="Stop" disabled="disabled" />
+                        </div>
                     </div>
-                    <div id="audio-spectrum1"></div>
-                    <!-- Create action buttons -->
-                    <div class="buttons">
-                        <input type="button" id="btn-play1" value="Play" disabled="disabled"/>
-                        <input type="button" id="btn-pause1" value="Pause" disabled="disabled"/>
-                        <input type="button" id="btn-stop1" value="Stop" disabled="disabled" />
-                    </div>
-                </div>
-                <!-- Create a div where the audio waves will be shown --> 
-                <div id="timeline2">
-                    <div class="song-details" id="song-details2">
-                        <span class="song-title" id="song-title2"></span>
-                        <span class="bpm" id="bpm2"></span>
-                        <span class="key" id="key2"></span>
-                    </div>
-                    <div id="audio-spectrum2"></div>
-                    <!-- Create action buttons -->
-                    <div class="buttons">
-                        <input type="button" id="btn-play2" value="Play" disabled="disabled"/>
-                        <input type="button" id="btn-pause2" value="Pause" disabled="disabled"/>
-                        <input type="button" id="btn-stop2" value="Stop" disabled="disabled" />
-                    </div>
-                </div>
+                {%endfor%}
             </div>
             <div id="feature-buttons">
-                <input type="button" id="btn-play-both" value="Play Both" disabled="disabled"/>
+                <!-- <input type="button" id="btn-play-both" value="Play Both" disabled="disabled"/>
                 <input type="button" id="btn-pause-both" value="Pause Both" disabled="disabled"/>
-                <input type="button" id="btn-stop-both" value="Stop Both" disabled="disabled"/>
-                <!-- <input type="button" id="btn-add-to-playlist1" value="Add song 1 to Playlist" disabled="disabled"/> -->
-                <input type="button" id="btn-add-to-playlist2" value="Add song 2 to Playlist" disabled="disabled"/>
+                <input type="button" id="btn-stop-both" value="Stop Both" disabled="disabled"/> -->
+                <input type="button" id="btn-add-to-playlist1" num="1" value="Add song 1 to Playlist" disabled="disabled"/>
+                <input type="button" id="btn-add-to-playlist2" num="2" value="Add song 2 to Playlist" disabled="disabled"/>
             </div>
             <div id="recommendation-wrapper">
                 <h2>Recommendations</h2>

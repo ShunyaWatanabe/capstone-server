@@ -26,10 +26,29 @@ def get_song(filename):
 def song_to_text(song):
 	return song.replace(".mp3", ".txt")
 
-def get_recommendations(chosen_song):
-	# look at the same segment_type and look at energy. choose three with closest energy level
-	print("get recommendations")
-	recs = []
+@app.route('/')
+def index():
+	song_titles = listdir('static/music/songs')
+	song_titles.remove(".DS_Store")
+	song_titles.remove(".gitkeep")
+	return render_template('index.html', songs=song_titles, numSongs=len(song_titles))
+
+
+@app.route('/segments/<filename>/')
+def get_segments(filename=None):
+	print(filename)
+	if filename == None:
+		return "no filename"
+	song = get_song(filename)
+	return jsonify(segments=song["cue points"])
+
+@app.route('/recommendations/<filename>/')
+def get_recommendations(filename=None):
+	print(filename)
+	if filename == None:
+		return "no filename"
+	chosen_song = get_song(filename)	
+	recommendations = []
 	song_title = chosen_song["song_title"]
 	for curr_seg in chosen_song["segments"]:
 		rec = []
@@ -49,33 +68,14 @@ def get_recommendations(chosen_song):
 			add += 1
 			deduct += 1
 
-		recs.append(rec)
-
-	return recs
-
-
-@app.route('/')
-def index():
-	song_titles = listdir('static/music/songs')
-	song_titles.remove(".DS_Store")
-	song_titles.remove(".gitkeep")
-	return render_template('index.html', songs=song_titles, numSongs=len(song_titles))
-
-
-@app.route('/segments/<filename>/')
-def get_segments(filename=None):
-	print(filename)
-	if filename == None:
-		return 
-	song = get_song(filename)
-	recommendations = get_recommendations(song)
-	return jsonify(segments=song["cue points"], recommendations=recommendations)
+		recommendations.append(rec)
+	return jsonify(recommendations=recommendations)
 
 @app.route('/song/<filename>/')
 def get_song_info(filename=None):
 	print(filename)
 	if filename == None:
-		return 
+		return "no filename"
 	return jsonify(song=get_song(filename))
 
 def main():
@@ -84,6 +84,5 @@ def main():
 		data = json.load(json_file)
 		songs = data['songs']
 		segments = data['segments']
-	print("main is done")
 
 main()
