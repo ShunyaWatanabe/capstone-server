@@ -3,62 +3,63 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Capstone</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
     </head>
-    <body id="wrapper">
+    <body id="wrapper", class="grad">
         <div id="left">
             <h1>Menu</h1>
         </div>
         <div id="center">
-            <div id="song-list-container">
+            <div id="song-list-container" class="section-container">
                 <h2 id="song-list-header">Choose your 1st song</h2>
                 <ul id="song-list">
                 {%for i in range(0, numSongs)%} 
                     <li class="playlist-item"><a class="song" id="{{songs[i]}}"> {{i+1}} : {{ songs[i] }} </a></li> 
                 {%endfor%} 
                 </ul>
-                <input type="button" id="btn-song-list" value="Decide"/>
+                <input type="button" class="btn btn-success" id="btn-song-list" value="Decide"/>
             </div>
-            <div id="playlist-container">
+            <div id="playlist-container" class="section-container">
                 <h2>Playlist</h2>
                 <ul id="playlist">
                 </ul>
                 <div id="playlist-buttons">
-                    <input type="button" id="btn-playlist-download" value="Download"/>
-                    <input type="button" id="btn-playlist-reset" value="Reset"/>
+                    <input type="button" class="btn btn-success" id="btn-playlist-download" value="Download"/>
+                    <input type="button" class="btn btn-success" id="btn-playlist-reset" value="Reset"/>
                 </div>
             </div>
         </div>
         <div id="right">
-            <div id="timeline-viewer">
+            <div id="timeline-viewer" class="section-container">
             <!-- Create a div where the audio waves will be shown --> 
                 {%for i in range(0, 2)%} 
-                    <div id="timeline{{i+1}}">
+                    <div id="timeline{{i+1}}" class="timeline">
                         <div class="song-details" id="song-details{{i+1}}">
                             <span class="song-title" id="song-title{{i+1}}"></span>
                             <span class="bpm" id="bpm{{i+1}}"></span>
                             <span class="key" id="key{{i+1}}"></span>
                         </div>
-                        <div id="audio-spectrum{{i+1}}"></div>
+                        <div id="audio-spectrum{{i+1}}" class="spectrum"></div>
                         <!-- Create action buttons -->
                         <div class="buttons">
-                            <input type="button" id="btn-play{{i+1}}" value="Play" disabled="disabled"/>
-                            <input type="button" id="btn-pause{{i+1}}" value="Pause" disabled="disabled"/>
-                            <input type="button" id="btn-stop{{i+1}}" value="Stop" disabled="disabled" />
+                            <input type="button" class="btn btn-primary" id="btn-play{{i+1}}" value="Play" disabled="disabled"/>
+                            <input type="button" class="btn btn-primary" id="btn-pause{{i+1}}" value="Pause" disabled="disabled"/>
+                            <input type="button" class="btn btn-primary" id="btn-stop{{i+1}}" value="Stop" disabled="disabled" />
                         </div>
                     </div>
                 {%endfor%}
+                <div id="feature-buttons">
+                    <!-- <input type="button" id="btn-play-both" value="Play Both" disabled="disabled"/>
+                    <input type="button" id="btn-pause-both" value="Pause Both" disabled="disabled"/>
+                    <input type="button" id="btn-stop-both" value="Stop Both" disabled="disabled"/> -->
+                    <input type="button" class="btn btn-success" id="btn-add-to-playlist1" num="1" value="Add song 1 to Playlist" disabled="disabled"/>
+                    <input type="button" class="btn btn-success"id="btn-add-to-playlist2" num="2" value="Add song 2 to Playlist" disabled="disabled"/>
+                </div>
             </div>
-            <div id="feature-buttons">
-                <!-- <input type="button" id="btn-play-both" value="Play Both" disabled="disabled"/>
-                <input type="button" id="btn-pause-both" value="Pause Both" disabled="disabled"/>
-                <input type="button" id="btn-stop-both" value="Stop Both" disabled="disabled"/> -->
-                <input type="button" id="btn-add-to-playlist1" num="1" value="Add song 1 to Playlist" disabled="disabled"/>
-                <input type="button" id="btn-add-to-playlist2" num="2" value="Add song 2 to Playlist" disabled="disabled"/>
-            </div>
-            <div id="recommendation-wrapper">
-                <h2>Recommendations</h2>
+            <div id="recommendation-wrapper" class="section-container">
+                <h2 id="recommendation-header">Recommendations</h2>
                 <ul id="recommendation">
                 </ul>
             </div>

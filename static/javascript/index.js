@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function(){
     // initialize
     Spectrums.push(initializeSpectrum(0));
     Spectrums.push(initializeSpectrum(1));
-    //initializeFeatureButtons();
     initializeAddButtons();
     
     // set up interactions
@@ -183,60 +182,17 @@ function initializeAddButtons(){
             loadRecommendations(song_title, parseInt(num)-1);
 
             // clear up the other spectrum            
-            document.querySelector("#song-details"+otherNum).innerHTML = "";
+            document.querySelector("#song-details"+otherNum).innerHTML = otherNum + ":" ;
             clearWave(parseInt(otherNum)-1);
 
             // switch the button
             document.querySelector("#btn-add-to-playlist"+otherNum).style.display = "inline";
             document.querySelector("#btn-add-to-playlist"+num).style.display = "none";          
-            
-            // buttons.playBoth.disabled = true;
-            // buttons.pauseBoth.disabled = true;
-            // buttons.stopBoth.disabled = true;
+
         });
     }
 }
-/*
-function initializeFeatureButtons(){
-    function changeDisabled(bools){
-        var i = 0;
-        for (var key in buttons){
-            buttons[key].disabled = bools[i];
-            i+=1;
-        }
-    }
 
-    var buttons = {
-        playBoth: document.getElementById("btn-play-both"),
-        pauseBoth: document.getElementById("btn-pause-both"),
-        stopBoth: document.getElementById("btn-stop-both"),
-    };
-
-    buttons.playBoth.addEventListener("click", function(){
-        for (var i=0; i<2; i++){
-            document.getElementById("btn-play"+(i+1).toString()).click();
-            states[i] = "play";
-        }
-        changeDisabled[true, false, false];
-    });
-
-    buttons.pauseBoth.addEventListener("click", function(){
-        for (var i=0; i<2; i++){
-            document.getElementById("btn-pause"+(i+1).toString()).click();
-            states[i] = "pause";
-        }
-        changeDisabled[false, true, false];
-    });
-
-    buttons.stopBoth.addEventListener("click", function(){
-        for (var i=0; i<2; i++){
-            document.getElementById("btn-stop"+(i+1).toString()).click();
-            states[i] = "stop";
-        }
-        changeDisabled[false, true, true];
-    });
-}
-*/
 function initializeButtons(buttons, num){
 
     function changeDisabled(bools){
@@ -255,15 +211,7 @@ function initializeButtons(buttons, num){
             true, // play
             false, // pause
             false, // stop
-            // false, // playBoth
-            // false, // pauseBoth
-            // false, // stopBoth
         ]);
-
-        // states[parseInt(num)-1] = "play";
-        // if (states[parseInt(num)%2] == "play"){
-        //     buttons.playBoth.disabled = true;
-        // }
     }, false);
 
     // Handle Pause button
@@ -274,15 +222,7 @@ function initializeButtons(buttons, num){
             false, // play
             true, // pause
             false, // stop
-            // false, // playBoth
-            // false, // pauseBoth
-            // false, // stopBoth
         ]);
-
-        // states[parseInt(num)-1] = "pause";     
-        // if (states[parseInt(num)%2] == "pause"){
-        //     buttons.pauseBoth.disabled = true;
-        // }
     }, false);
 
     // Handle Stop button
@@ -293,19 +233,7 @@ function initializeButtons(buttons, num){
             false, // play
             true, // pause
             true, // stop
-            // false, // playBoth
-            // false, // pauseBoth
-            // false, // stopBoth
         ]);
-    
-        // states[num] = "stop";
-        // if (states[num] == "pause"){
-        //     buttons.pauseBoth.disabled = true;
-        // }
-        // else if (states[num] == "stop"){
-        //     buttons.pauseBoth.disabled = true;
-        //     buttons.stopBoth.disabled = true;
-        // }
     }, false);
 }
 
@@ -316,9 +244,6 @@ function initializeSpectrum(num){
         play: document.getElementById("btn-play"+(num+1).toString()),
         pause: document.getElementById("btn-pause"+(num+1).toString()),
         stop: document.getElementById("btn-stop"+(num+1).toString()),
-        // playBoth: document.getElementById("btn-play-both"),
-        // pauseBoth: document.getElementById("btn-pause-both"),
-        // stopBoth: document.getElementById("btn-stop-both"),
         add1: document.getElementById("btn-add-to-playlist1"),
         add2: document.getElementById("btn-add-to-playlist2")
     };
@@ -327,6 +252,7 @@ function initializeSpectrum(num){
 
     // Create an instance of wave surfer with its configuration
     var Spectrum = WaveSurfer.create({
+        height: 86, // default: 128
         container: '#audio-spectrum'+(num+1).toString(),
         progressColor: "#03a9f4",
         plugins: [
@@ -337,12 +263,6 @@ function initializeSpectrum(num){
     // Add a listener to enable the play button once it's ready
     Spectrum.on('ready', function () {
         buttons.play.disabled = false;
-        // states[num] = "stop";
-        // if (states[num] == "stop"){
-        //     buttons.playBoth.disabled = false;
-        //     buttons.pauseBoth.disabled = true;
-        //     buttons.stopBoth.disabled = true;
-        // }
 
         if (num == 1){
             buttons.add2.disabled = false;
