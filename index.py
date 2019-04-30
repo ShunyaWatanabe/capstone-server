@@ -13,11 +13,13 @@ Akeys = ["B", "F#", "Db", "Ab", "Eb", "Bb", "F", "C", "G", "D", "A", "E"]
 Bkeys = ["Abm", "Ebm", "Bbm", "Fm", "Cm", "Gm", "Dm", "Am", "Em", "Bm", "F#m", "Dbm"]
 
 # find index
-def find(lst, key, value):
-    for i, dic in enumerate(lst):
-        if dic[key] == value:
-            return i
-    return -1
+def contains_item(songs, song):
+	for s in songs:
+		if s["song_title"] == song["song_title"]:
+			print("found duplicate")
+			return True
+	return False
+
 
 def get_song(filename):
 	for song in songs:
@@ -113,7 +115,7 @@ def get_recommendations(filename=None):
 		segment = next((x for x in chosen_song["segments"] if x["segment_type"] == segment_type), None)
 		if segment != None:
 			recommendations[key].sort(key=lambda x: abs(float(x["energy"])-float(segment["energy"])))
-		recommendations[key] = recommendations[key][:5]
+		#recommendations[key] = recommendations[key][:5]
 
 	return jsonify(recommendations=recommendations)
 

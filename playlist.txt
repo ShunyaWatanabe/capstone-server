@@ -1,3 +1,28 @@
-1song title: Above & Beyond - Flying By Candlelight (Above & Beyond Extended Club Mix).mp3, start: None, mix from: None
-2song title: Sunstars_x_Tom_Jame_-_You_Know_Feat._Kris_Kiss_Extended_Mix-Vubey.mp3, start: 0, mix from: drop
-3song title: Mike_Williams_x_Mesto_-_Wait_Another_Day_Extended_mix.mp3, start: 0, mix from: drop
+1 song title: Mike Di Scala - Space & Time (Deadmau5 Remix).mp3, start: None, mix from: None
+2 song title: Steff_Da_Campo_Tommy_Jayden_-_Gin_Vodka-Vubey.mp3, start: 23, mix from: build-up
+3 song title: Reckless-Vubey.mp3, start: 0, mix from: drop
+4 song title: Mike_Williams_-_Rocket_Extended_Mix-Vubey.mp3, start: 108, mix from: break
+5 song title: ANG_-_Deeper-Vubey.mp3, start: 73, mix from: break
+6 song title: Apache_Anthem_Extended_Mix-Vubey.mp3, start: 67, mix from: build-up
+7 song title: Tritonal & Kapera - Easy ft. Ryann [Lyric Video].mp3, start: 113, mix from: build-up
+8 song title: SLATIN - Apple Juice (feat. Carla Monroe) (MOTi Remix).mp3, start: 17, mix from: build-up
+9 song title: Swanky_Tunes_-_In_The_Club_Extended_Mix-Vubey.mp3, start: 60, mix from: build-up
+10 song title: Martin Garrix - Pizza.mp3, start: 105, mix from: break
+11 song title: Bring_That_Boom_Extended_Mix-Vubey.mp3, start: 0, mix from: drop
+12 song title: KSHMR_-_Magic_Extended_Mix-Vubey.mp3, start: 30, mix from: break
+13 song title: Dada_Life_-_We_Want_Your_Soul_Mike_Williams_Remix-Vubey.mp3, start: 0, mix from: drop
+14 song title: SICK_INDIVIDUALS_-_Symphony_feat._Nevve-Vubey.mp3, start: 262, mix from: build-up
+15 song title: Tiësto & KSHMR - Harder (Maurice West Remix).mp3, start: 157, mix from: build-up
+16 song title: Thomas Gold - Non-Stop.mp3, start: 0, mix from: build-up
+17 song title: Paris Blohm - Warriors.mp3, start: 120, mix from: build-up
+18 song title: Armin van Buuren x Lucas & Steve feat. Josh Cumbee - Don't Give Up On Me (Club Mix) [Official Video].mp3, start: 165, mix from: build-up
+19 song title: Flash_Finger_AvAlanche_-_Let_s_ROCK_Out_Now_Moon_Records-Vubey.mp3, start: 0, mix from: drop
+20 song title: Ilija Djokovic - Atom (Original Mix).mp3, start: 150, mix from: break
+21 song title: ZEDD - Clarity.mp3, start: 1, mix from: drop
+22 song title: Mr.Black - Ravin.mp3, start: 91, mix from: break
+23 song title: MAKJ_Timmy_Trumpet_-_Party_Till_We_Die_feat._Andrew_W.K.-Vubey.mp3, start: 67, mix from: break
+24 song title: Reece_Low_Bonka_ft._Big_Red_Cap_-_Off_The_Set_Whale_EP_Out_Now-Vubey.mp3, start: 75, mix from: break
+25 song title: Garmiani - BARRACA (Extended Mix).mp3, start: 112, mix from: build-up
+26 song title: Jewelz & Sparks - Hard.mp3, start: 24, mix from: build-up
+27 song title: Gattuso - Dance Stay High.mp3, start: 45, mix from: build-up
+28 song title: Mind_On_Fire_Original_Mix-Vubey.mp3, start: 30, mix from: build-up

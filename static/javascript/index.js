@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     document.querySelector("#btn-playlist-download").addEventListener("click", function(){
-        console.log(playlist);
+        
         $.post("/download/",
         {data: JSON.stringify(playlist)},
         function(data, status){
-            console.log(data);
+            
             // var file = new File([data], "playlist.txt");
             var file = new Blob([data], {type: "text/plain"});
             var link = document.createElement('a');
@@ -112,17 +112,35 @@ function loadDetails(song, si){
     })
 }
 
+function arrayRemove(arr, value) {
+
+   return arr.filter(function(ele){
+       return ele != value;
+   });
+
+}
 
 function loadRecommendations(song_title, si){
     $.get("/recommendations/"+song_title, function(data, status){
         var recommendations = data.recommendations;
-        console.log(recommendations);
+        
         for (key in recommendations){
             var mix = key.replace("for_", "");
             document.getElementById(key).innerHTML = "";
             document.getElementById(key).innerHTML += `
                 <li class="recommendation-header">Mix with ${mix}</li>
             `;
+
+            // get rid of the song that is already in playlist
+            console.log(key, "before", recommendations[key].length);
+            recommendations[key] = recommendations[key].filter(function(item) {
+                // console.log(item["song_title"]);
+                // console.log(playlist.map(a => a["song_title"]));
+                // console.log(playlist.map(a => a["song_title"]).includes(item["song_title"]));
+                return !(playlist.map(a => a["song_title"]).includes(item["song_title"]));
+            });
+            console.log(key, "after", recommendations[key].length);
+
             var line = recommendations[key];
             for (var i=0; i<line.length; i++){
                 document.getElementById(key).innerHTML += `
@@ -144,7 +162,7 @@ function addOnClicksOnRecommendations(recItems, si){
 
             lastRecommendationClicked = this;
 
-            console.log("clicked");
+            
             var spectrum = Spectrums[(si+1)%2];
 
             spectrum.clearRegions();
@@ -167,7 +185,7 @@ function addOnClicksOnRecommendations(recItems, si){
 
 function addSongToPlayList(song_title){
     var recommendation = lastRecommendationClicked; // it stores "start" and "mix_from"
-    console.log(recommendation);
+    
     var start = recommendation.getAttribute("start");
     var mix_from = recommendation.getAttribute("mix_from");
     var added_song = {
