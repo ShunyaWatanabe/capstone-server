@@ -8,7 +8,12 @@ body{
   background-image: linear-gradient(to bottom, #78FEEA, #00D8FE);
 }
 
-
+h1{
+	font-size: 4rem;
+}
+h2{
+	font-size: 22px;
+}
 
 /*bigger sections*/
 .section-container {
@@ -17,27 +22,40 @@ body{
 	padding: 25px;
 }
 
-
+#left{
+	float: left;
+    margin: 0 15px;
+}
 
 /*grid and flex box*/
+#recommendation{
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 100%;
+}
+
+.recommendation-col{
+	grid-column: span 1;
+	min-width: 0;
+	padding-right: 40px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 #wrapper{
 	display: grid;
 	grid-template-columns: repeat(9, 1fr);
 	grid-template-rows: 100vh;
 }
 
-#left{
-	padding: 15px;
-	grid-column: span 1;
-}
-
 #center{
 	padding: 15px;
-	grid-column: span 2;
+	grid-column: span 3;
 }
 
 #right{
 	padding: 15px;
+	overflow: scroll;
 	grid-column: span 6;
 }
 
@@ -72,10 +90,11 @@ body{
 
 #recommendation-wrapper{
 	flex-grow: 1;
+	flex-shrink: 2;
 }
 
+/*
 #recommendation-wrapper{
-	/*using flex box*/
 	display: flex;
 	flex-flow: column;
 }
@@ -84,7 +103,7 @@ body{
 	flex-shrink: 2;
 	overflow:hidden; 
 	overflow-y:scroll;
-}
+}*/
 
 
 /*paylist section*/
@@ -111,7 +130,6 @@ ul {
 
 /*recommendation section*/
 .recommendation {
-	width: 30%;
 	display: inline-block;
 	list-style-position:inside;
 	white-space: nowrap;
@@ -136,6 +154,10 @@ a:hover{
 	display: inline-block;
 	float: left;
 	width: 20px;
+}
+
+.recommendation-header{
+	font-weight: bold;
 }
 
 

@@ -1,8 +1,9 @@
-var isFirstSongChosen = false;
 var firstSongChosen = "";
 var states = ["init", "init"];
 var lenPlaylist = 0;
+var playlist = [];
 var Spectrums = [];
+var lastRecommendationClicked = "";
 
 document.addEventListener('DOMContentLoaded', function(){
     // initialize
@@ -17,22 +18,36 @@ document.addEventListener('DOMContentLoaded', function(){
         songs[i].onclick = function(){
             loadWave(this.id, 0);
             firstSongChosen = this.id;
-            if (isFirstSongChosen == false){
-                return;
-            }
+            lastRecommendationClicked = this;
         }
     }
 
     document.querySelector("#btn-song-list").addEventListener("click", function(){
         // add song to the playlist
-        if (isFirstSongChosen == false){
-            addSongToPlayList(firstSongChosen);
-            isFirstSongChosen = true;
+        if (firstSongChosen == ""){
+            alert("You need to choose a song");
+            return;
         }
+        addSongToPlayList(firstSongChosen);
         // hide song list and display playlist
         document.querySelector("#song-list-container").style.display = "none";
         document.querySelector("#playlist-container").style.display = "flex";
         loadRecommendations(firstSongChosen, 0);
+    });
+
+    document.querySelector("#btn-playlist-download").addEventListener("click", function(){
+        console.log(playlist);
+        $.post("/download/",
+        {data: JSON.stringify(playlist)},
+        function(data, status){
+            console.log(data);
+            // var file = new File([data], "playlist.txt");
+            var file = new Blob([data], {type: "text/plain"});
+            var link = document.createElement('a');
+            link.download = "playlist.txt";
+            link.href = URL.createObjectURL(file);
+            link.click();
+        });
     });
 
 }, false);
@@ -99,26 +114,25 @@ function loadDetails(song, si){
 
 
 function loadRecommendations(song_title, si){
-    document.getElementById("recommendation").innerHTML = "";
     $.get("/recommendations/"+song_title, function(data, status){
         var recommendations = data.recommendations;
-        for (var j=0; j<recommendations.length; j++){
-            var songs = [];
-            for (var i=0; i<3; i++){
-                songs.push(recommendations[j][i]);
+        console.log(recommendations);
+        for (key in recommendations){
+            var mix = key.replace("for_", "");
+            document.getElementById(key).innerHTML = "";
+            document.getElementById(key).innerHTML += `
+                <li class="recommendation-header">Mix with ${mix}</li>
+            `;
+            var line = recommendations[key];
+            for (var i=0; i<line.length; i++){
+                document.getElementById(key).innerHTML += `
+                <li class="recommendation"> <a class="recommendation-song"start="${line[i].start}" mix_from="${mix}">${line[i].song_title} </a></li>
+                `;
             }
-            var item = `
-                <li class="recommendations-item">
-                    <span class="recommendation-number"> ${j+1}: </span>
-                    <a class="recommendation song" start="${songs[0].start}">${songs[0].song_title}</a>
-                    <a class="recommendation song" start="${songs[1].start}">${songs[1].song_title}</a>
-                    <a class="recommendation song" start="${songs[2].start}">${songs[2].song_title}</a>
-                </li>
-            `
-            document.getElementById("recommendation").innerHTML += item;
+            // document.getElementById("recommendation").innerHTML ;   
         }
         // add onclick for each recommendation
-        var recItems = document.getElementsByClassName('recommendation song');
+        var recItems = document.getElementsByClassName('recommendation-song');
         addOnClicksOnRecommendations(recItems, si);
     });
 }
@@ -127,11 +141,14 @@ function loadRecommendations(song_title, si){
 function addOnClicksOnRecommendations(recItems, si){
     for (var j=0; j<recItems.length; j++){
         recItems[j].onclick = function (){
+
+            lastRecommendationClicked = this;
+
+            console.log("clicked");
             var spectrum = Spectrums[(si+1)%2];
 
             spectrum.clearRegions();
             spectrum.load("static/music/songs/" + this.innerText);
-            console.log((si+1)%2);
             loadDetails(this.innerText, (si+1)%2);
             loadRegions(this.innerText, (si+1)%2);
 
@@ -141,12 +158,25 @@ function addOnClicksOnRecommendations(recItems, si){
                 spectrum.stop();
                 spectrum.skip(start);
             });
+
+            document.querySelector("#btn-add-to-playlist"+((si+1)%2+1).toString()).disabled = false;
         }
     }
 }
 
 
 function addSongToPlayList(song_title){
+    var recommendation = lastRecommendationClicked; // it stores "start" and "mix_from"
+    console.log(recommendation);
+    var start = recommendation.getAttribute("start");
+    var mix_from = recommendation.getAttribute("mix_from");
+    var added_song = {
+        "song_title": song_title,
+        "start": start,
+        "mix_from": mix_from,
+    };
+    playlist.push(added_song);
+
     lenPlaylist += 1;
     var item = `
         <li class="playlist-item">
@@ -154,6 +184,7 @@ function addSongToPlayList(song_title){
             <a class="playlist-song"> ${song_title} </a>
         </li>
     `
+
     document.querySelector("#playlist").innerHTML += item;
 }
 
@@ -185,8 +216,13 @@ function initializeAddButtons(){
             document.querySelector("#song-details"+otherNum).innerHTML = otherNum + ":" ;
             clearWave(parseInt(otherNum)-1);
 
+            document.querySelector("#btn-play"+otherNum).disabled = true;
+            document.querySelector("#btn-pause"+otherNum).disabled = true;
+            document.querySelector("#btn-stop"+otherNum).disabled = true;
+
             // switch the button
             document.querySelector("#btn-add-to-playlist"+otherNum).style.display = "inline";
+            document.querySelector("#btn-add-to-playlist"+otherNum).disabled = true;
             document.querySelector("#btn-add-to-playlist"+num).style.display = "none";          
 
         });
@@ -244,8 +280,8 @@ function initializeSpectrum(num){
         play: document.getElementById("btn-play"+(num+1).toString()),
         pause: document.getElementById("btn-pause"+(num+1).toString()),
         stop: document.getElementById("btn-stop"+(num+1).toString()),
-        add1: document.getElementById("btn-add-to-playlist1"),
-        add2: document.getElementById("btn-add-to-playlist2")
+        // add1: document.getElementById("btn-add-to-playlist1"),
+        // add2: document.getElementById("btn-add-to-playlist2")
     };
 
     initializeButtons(buttons, num);
@@ -265,7 +301,7 @@ function initializeSpectrum(num){
         buttons.play.disabled = false;
 
         if (num == 1){
-            buttons.add2.disabled = false;
+            document.getElementById("btn-add-to-playlist2").disabled = false;
         }
     });
     

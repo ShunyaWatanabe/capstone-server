@@ -3,68 +3,75 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Capstone</title>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename='bootstrap-4.3.1-dist/js/bootstrap.min.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.3.1-dist/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     </head>
-    <body id="wrapper", class="grad">
+    <body class="grad">
         <div id="left">
-            <h1>Menu</h1>
+            <h1><i class="fas fa-bars"></i></h1>
         </div>
-        <div id="center">
-            <div id="song-list-container" class="section-container">
-                <h2 id="song-list-header">Choose your 1st song</h2>
-                <ul id="song-list">
-                {%for i in range(0, numSongs)%} 
-                    <li class="playlist-item"><a class="song" id="{{songs[i]}}"> {{i+1}} : {{ songs[i] }} </a></li> 
-                {%endfor%} 
-                </ul>
-                <input type="button" class="btn btn-success" id="btn-song-list" value="Decide"/>
-            </div>
-            <div id="playlist-container" class="section-container">
-                <h2>Playlist</h2>
-                <ul id="playlist">
-                </ul>
-                <div id="playlist-buttons">
-                    <input type="button" class="btn btn-success" id="btn-playlist-download" value="Download"/>
-                    <input type="button" class="btn btn-success" id="btn-playlist-reset" value="Reset"/>
+        <div id="wrapper">
+            <div id="center">
+                <div id="song-list-container" class="section-container">
+                    <h2 id="song-list-header">Choose your 1st song</h2>
+                    <ul id="song-list">
+                    {%for i in range(0, numSongs)%} 
+                        <li class="playlist-item"><a class="song" id="{{songs[i]}}"> {{i+1}} : {{ songs[i] }} </a></li> 
+                    {%endfor%} 
+                    </ul>
+                    <input type="button" class="btn btn-success" id="btn-song-list" value="Decide"/>
                 </div>
-            </div>
-        </div>
-        <div id="right">
-            <div id="timeline-viewer" class="section-container">
-            <!-- Create a div where the audio waves will be shown --> 
-                {%for i in range(0, 2)%} 
-                    <div id="timeline{{i+1}}" class="timeline">
-                        <div class="song-details" id="song-details{{i+1}}">
-                            <span class="song-title" id="song-title{{i+1}}"></span>
-                            <span class="bpm" id="bpm{{i+1}}"></span>
-                            <span class="key" id="key{{i+1}}"></span>
-                        </div>
-                        <div id="audio-spectrum{{i+1}}" class="spectrum"></div>
-                        <!-- Create action buttons -->
-                        <div class="buttons">
-                            <input type="button" class="btn btn-primary" id="btn-play{{i+1}}" value="Play" disabled="disabled"/>
-                            <input type="button" class="btn btn-primary" id="btn-pause{{i+1}}" value="Pause" disabled="disabled"/>
-                            <input type="button" class="btn btn-primary" id="btn-stop{{i+1}}" value="Stop" disabled="disabled" />
-                        </div>
+                <div id="playlist-container" class="section-container">
+                    <h2>Playlist</h2>
+                    <ul id="playlist">
+                    </ul>
+                    <div id="playlist-buttons">
+                        <input type="button" class="btn btn-success" id="btn-playlist-download" value="Download"/>
+                        <input type="button" class="btn btn-success" id="btn-playlist-reset" value="Reset" onClick="window.location.reload();"/>
                     </div>
-                {%endfor%}
-                <div id="feature-buttons">
-                    <!-- <input type="button" id="btn-play-both" value="Play Both" disabled="disabled"/>
-                    <input type="button" id="btn-pause-both" value="Pause Both" disabled="disabled"/>
-                    <input type="button" id="btn-stop-both" value="Stop Both" disabled="disabled"/> -->
-                    <input type="button" class="btn btn-success" id="btn-add-to-playlist1" num="1" value="Add song 1 to Playlist" disabled="disabled"/>
-                    <input type="button" class="btn btn-success"id="btn-add-to-playlist2" num="2" value="Add song 2 to Playlist" disabled="disabled"/>
                 </div>
             </div>
-            <div id="recommendation-wrapper" class="section-container">
-                <h2 id="recommendation-header">Recommendations</h2>
-                <ul id="recommendation">
-                </ul>
+            <div id="right">
+                <div id="timeline-viewer" class="section-container">
+                <!-- Create a div where the audio waves will be shown --> 
+                    {%for i in range(0, 2)%} 
+                        <div id="timeline{{i+1}}" class="timeline">
+                            <div class="song-details" id="song-details{{i+1}}">
+                                <span class="song-title" id="song-title{{i+1}}"></span>
+                                <span class="bpm" id="bpm{{i+1}}"></span>
+                                <span class="key" id="key{{i+1}}"></span>
+                            </div>
+                            <div id="audio-spectrum{{i+1}}" class="spectrum"></div>
+                            <!-- Create action buttons -->
+                            <div class="buttons">
+                                <input type="button" class="btn btn-primary" id="btn-play{{i+1}}" value="Play" disabled="disabled"/>
+                                <input type="button" class="btn btn-primary" id="btn-pause{{i+1}}" value="Pause" disabled="disabled"/>
+                                <input type="button" class="btn btn-primary" id="btn-stop{{i+1}}" value="Stop" disabled="disabled" />
+                            </div>
+                        </div>
+                    {%endfor%}
+                    <div id="feature-buttons">
+                        <!-- <input type="button" id="btn-play-both" value="Play Both" disabled="disabled"/>
+                        <input type="button" id="btn-pause-both" value="Pause Both" disabled="disabled"/>
+                        <input type="button" id="btn-stop-both" value="Stop Both" disabled="disabled"/> -->
+                        <input type="button" class="btn btn-success" id="btn-add-to-playlist1" num="1" value="Add song 1 to Playlist" disabled="disabled"/>
+                        <input type="button" class="btn btn-success"id="btn-add-to-playlist2" num="2" value="Add song 2 to Playlist" disabled="disabled"/>
+                    </div>
+                </div>
+                <div id="recommendation-wrapper" class="section-container">
+                    <h2 id="recommendation-header">Recommendations</h2>
+                    <div id="recommendation">
+                        <ul id="for_drop" class="recommendation-col"></ul>
+                        <ul id="for_break" class="recommendation-col"></ul>
+                        <ul id="for_build-up" class="recommendation-col"></ul>
+                    </div>
+                </div>
             </div>
         </div>
-
         <!-- Load the wavesurferscript , in this case from a CDN -->
         <script src="https://unpkg.com/wavesurfer.js"></script>
         <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
