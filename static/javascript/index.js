@@ -134,9 +134,6 @@ function loadRecommendations(song_title, si){
             // get rid of the song that is already in playlist
             console.log(key, "before", recommendations[key].length);
             recommendations[key] = recommendations[key].filter(function(item) {
-                // console.log(item["song_title"]);
-                // console.log(playlist.map(a => a["song_title"]));
-                // console.log(playlist.map(a => a["song_title"]).includes(item["song_title"]));
                 return !(playlist.map(a => a["song_title"]).includes(item["song_title"]));
             });
             console.log(key, "after", recommendations[key].length);
